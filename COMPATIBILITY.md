@@ -11,7 +11,7 @@
 This document tracks community-verified Motorola devices, tested custom ROMs, compiler methods, and hardware sensor functionality for the [Universal MotCamera4 Suite Installer](README.md).
 
 > [!NOTE]
-> Every entry in this matrix is populated strictly from confirmed user reports. No speculative, untested, or unverified hardware entries are listed.
+> Every entry in this directory is populated strictly from confirmed user reports. No speculative, untested, or unverified hardware entries are listed.
 
 ---
 
@@ -37,44 +37,24 @@ Every tested device outcome is classified into one of five categories:
 
 ---
 
-## Device Compatibility Matrix
+## Device Compatibility Directory
 
-### 🟢 Works Perfectly
+> **How to use this directory:**  
+> Click on any device below to expand its full test history, custom ROMs, compiler method, and sensor functionality reports.
 
-| Device Name | Codename | Model # | Compiler Method | Custom ROM | Stock Firmware Used | Reporter / Notes |
-| :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| **Moto G Stylus 5G (2023)** | `genevn` | `XT2315-1` | `.sh` | LineageOS (Android 17) | U1TGNS34.42_86_2_38 (RSA stock Android 14 dump) | [@vrwindsor1](https://github.com/vrwindsor1) in [#3](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/3) |
----
+<!-- DEVICE_LIST_START -->
+<!-- DEVICE: genevn -->
+<details>
+<summary><b>Moto G Stylus 5G (2023)</b> &nbsp;•&nbsp; <code>genevn</code> (XT2315-1) &nbsp;•&nbsp; 🟢 <b>Works Perfectly</b> &nbsp;<i>(1 report)</i></summary>
+<br>
 
-### 🟡 Mostly Working
+| Report | Compiler | Custom ROM | Stock Firmware | Outcome | Tested Features / Notes |
+| :--- | :---: | :--- | :--- | :---: | :--- |
+| [#3](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/3) by [@vrwindsor1](https://github.com/vrwindsor1) | `.sh` | LineageOS (Android 17) | U1TGNS34.42_86_2_38 (RSA stock Android 14 dump) | 🟢 Works Perfectly | Working: Main Camera, Ultrawide, Macro, Front Selfie, Video 4K, Slow Motion, Portrait, Pro |
 
-| Device Name | Codename | Model # | Compiler Method | Custom ROM | Stock Firmware Used | Reporter / Notes |
-| :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| *No confirmed reports yet.* | — | — | — | — | — | *Submit a report below to add your device.* |
-
----
-
-### 🔴 App Crashes
-
-| Device Name | Codename | Model # | Compiler Method | Custom ROM | Stock Firmware Used | Reporter / Notes |
-| :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| *No confirmed reports yet.* | — | — | — | — | — | *Submit a report below to add your device.* |
-
----
-
-### ⚪ App Missing
-
-| Device Name | Codename | Model # | Compiler Method | Custom ROM | Stock Firmware Used | Reporter / Notes |
-| :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| *No confirmed reports yet.* | — | — | — | — | — | *Submit a report below to add your device.* |
-
----
-
-### ⛔ Won't Boot
-
-| Device Name | Codename | Model # | Compiler Method | Custom ROM | Stock Firmware Used | Reporter / Notes |
-| :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| *No confirmed reports yet.* | — | — | — | — | — | *Submit a report below to add your device.* |
+</details>
+<!-- /DEVICE: genevn -->
+<!-- DEVICE_LIST_END -->
 
 ---
 
