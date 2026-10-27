@@ -472,7 +472,7 @@ except Exception:
   fi
 
   if [ -z "$MOTCAMERA4_VER" ]; then
-    MOTCAMERA4_VER=$(strings "$MOTCAMERA4_APK" 2>/dev/null | grep -E '^9\.[0-9]+\.[0-9]+\.[0-9]+' | head -n1 || echo "v9.x+")
+    MOTCAMERA4_VER=$(strings "$MOTCAMERA4_APK" 2>/dev/null | grep -E '^9\.[0-9]+\.[0-9]+\.[0-9]+' | head -n1 || echo "v9.x")
   fi
 
   log_ok "Moto Camera 4 Version: ${MOTCAMERA4_VER}"

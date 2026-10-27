@@ -7,7 +7,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="License"></a>
 </p>
 
-Extracts Motorola Camera components for devices using the MotCamera4 suite (`com.motorola.camera3` v9+), companion AI services, vendor hardware abstraction layers (HALs), and multi-camera tuning libraries directly from Motorola stock firmware and packages them into a flashable zip for recovery sideload on custom ROMs (Android 13+).
+Extracts Motorola Camera components for devices using the MotCamera4 suite (`com.motorola.camera3` v9.x), companion AI services, vendor hardware abstraction layers (HALs), and multi-camera tuning libraries directly from Motorola stock firmware and packages them into a flashable zip for recovery sideload on custom ROMs (Android 13+).
 
 > [!NOTE]
 > **No Proprietary Files Hosted**:  
@@ -25,7 +25,7 @@ Extracts Motorola Camera components for devices using the MotCamera4 suite (`com
 
 ## Compatibility
 
-- **Target Camera Suite:** **Moto Camera 4** (`com.motorola.camera3` version 9.x+).
+- **Target Camera Suite:** **Moto Camera 4** (`com.motorola.camera3` version 9.x).
 - **Device Lifecycle Requirement:** The target device likely needs to have officially supported stock **Android 13 or Android 14** somewhere in its official lifecycle (either released with it or received as an official update) to contain the modern MotCamera4 suite and compatible camera HAL stack.
   > [!NOTE]
   > This has not been verified across every Motorola generation. Users with devices running earlier or later stock versions are welcome to test and submit compatibility reports!
