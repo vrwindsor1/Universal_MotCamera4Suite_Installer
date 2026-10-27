@@ -4,6 +4,7 @@
   <img src="assets/motcamera4_logo.png" width="96" height="96" alt="MotCamera4 Logo">
   <br>
   <a href="README.md"><img src="https://img.shields.io/badge/Installer-Documentation-blue?style=flat-square" alt="README"></a>
+  <a href="REPORTS.md"><img src="https://img.shields.io/badge/Detailed-Device%20Reports-purple?style=flat-square" alt="Detailed Reports"></a>
   <a href="https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml"><img src="https://img.shields.io/badge/Submit-Compatibility%20Report-success?style=flat-square&logo=github" alt="Submit Report"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="License"></a>
 </p>
@@ -18,6 +19,7 @@ This document tracks community-verified Motorola devices, tested custom ROMs, co
 ## Quick Links
 
 - 🏠 **[Installer Documentation & Source (README)](README.md)**
+- 📋 **[Detailed Device Reports & Sensor Breakdowns (REPORTS.md)](REPORTS.md)**
 - 📝 **[Submit a Compatibility Report (GitHub Form)](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml)**
 - 🐛 **[Report a Tool Bug / Script Issue](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=bug_report.yml)**
 
@@ -39,30 +41,13 @@ Every tested device outcome is classified into one of five categories:
 
 ## Device Compatibility Matrix
 
-Click any device or report link in the table below to jump directly to its detailed community reports, tested ROMs, and sensor breakdowns:
+Click any device or report link in the table below to view its full test history, custom ROMs, and sensor breakdowns on the [Detailed Reports](REPORTS.md) page:
 
 <!-- SUMMARY_TABLE_START -->
 | Device Name | Codename | Model # | Status | Reports |
 | :--- | :--- | :--- | :---: | :---: |
-| [**Moto G Stylus 5G (2023)**](#genevn) | `genevn` | `XT2315-1` | 🟢 Works Perfectly | [1 Report ➔](#genevn) |
+| [**Moto G Stylus 5G (2023)**](REPORTS.md#genevn) | `genevn` | `XT2315-1` | 🟢 Works Perfectly | [1 Report ➔](REPORTS.md#genevn) |
 <!-- SUMMARY_TABLE_END -->
-
----
-
-## Detailed Device Reports
-
-<!-- DEVICE_REPORTS_START -->
-<!-- DEVICE: genevn -->
-<a id="genevn"></a>
-### 📱 Moto G Stylus 5G (2023) (`genevn` / `XT2315-1`)
-
-**Overall Status:** 🟢 **Works Perfectly** &bull; **Total Reports:** 1
-
-| Report | Compiler | Custom ROM | Stock Firmware | Outcome | Tested Features / Notes |
-| :--- | :---: | :--- | :--- | :---: | :--- |
-| [#3](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/3) by [@vrwindsor1](https://github.com/vrwindsor1) | `.sh` | LineageOS (Android 17) | U1TGNS34.42_86_2_38 (RSA stock Android 14 dump) | 🟢 Works Perfectly | Working: Main Camera, Ultrawide, Macro, Front Selfie, Video 4K, Slow Motion, Portrait, Pro |
-<!-- /DEVICE: genevn -->
-<!-- DEVICE_REPORTS_END -->
 
 ---
 

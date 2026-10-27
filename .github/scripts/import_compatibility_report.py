@@ -129,12 +129,20 @@ def main():
     print("New Report Row:", new_report_row)
 
     compat_file = "COMPATIBILITY.md"
+    reports_file = "REPORTS.md"
+
     if not os.path.exists(compat_file):
         print(f"[ERROR] {compat_file} does not exist.")
         sys.exit(1)
+    if not os.path.exists(reports_file):
+        print(f"[ERROR] {reports_file} does not exist.")
+        sys.exit(1)
 
     with open(compat_file, "r", encoding="utf-8") as f:
-        content = f.read()
+        compat_content = f.read()
+
+    with open(reports_file, "r", encoding="utf-8") as f:
+        reports_content = f.read()
 
     # Anchor markers
     sum_start_marker = "<!-- SUMMARY_TABLE_START -->"
@@ -142,10 +150,13 @@ def main():
     reports_start_marker = "<!-- DEVICE_REPORTS_START -->"
     reports_end_marker = "<!-- DEVICE_REPORTS_END -->"
 
-    for marker in [sum_start_marker, sum_end_marker, reports_start_marker, reports_end_marker]:
-        if marker not in content:
-            print(f"[ERROR] Required marker '{marker}' not found in {compat_file}.")
-            sys.exit(1)
+    if sum_start_marker not in compat_content or sum_end_marker not in compat_content:
+        print(f"[ERROR] Required table markers not found in {compat_file}.")
+        sys.exit(1)
+
+    if reports_start_marker not in reports_content or reports_end_marker not in reports_content:
+        print(f"[ERROR] Required reports markers not found in {reports_file}.")
+        sys.exit(1)
 
     device_key = re.sub(r"[^a-zA-Z0-9_-]", "", codename.lower())
     if not device_key or device_key == "—":
@@ -156,10 +167,10 @@ def main():
     device_end_marker = f"<!-- /DEVICE: {anchor} -->"
     issue_marker = f"[#{issue_number}](" if issue_number else None
 
-    # --- 1. Update/Add in DEVICE_REPORTS section ---
-    if device_start_marker in content and device_end_marker in content:
-        print(f"[INFO] Device '{anchor}' already has reports. Updating existing section...")
-        r_parts = content.split(device_start_marker, 1)
+    # --- 1. Update/Add in REPORTS.md ---
+    if device_start_marker in reports_content and device_end_marker in reports_content:
+        print(f"[INFO] Device '{anchor}' already has reports in {reports_file}. Updating section...")
+        r_parts = reports_content.split(device_start_marker, 1)
         before_dev = r_parts[0]
         dev_and_rest = r_parts[1].split(device_end_marker, 1)
         dev_block = dev_and_rest[0]
@@ -194,9 +205,9 @@ def main():
 | :--- | :---: | :--- | :--- | :---: | :--- |
 """ + "\n".join(existing_report_rows) + "\n"
 
-        content = before_dev + device_start_marker + new_dev_block + device_end_marker + after_dev
+        reports_content = before_dev + device_start_marker + new_dev_block + device_end_marker + after_dev
     else:
-        print(f"[INFO] Adding new device section for '{device_name}' ({codename})...")
+        print(f"[INFO] Adding new device section in {reports_file} for '{device_name}' ({codename})...")
         total_reports = 1
         plural_s = "Report"
         model_str = f" / `{model}`" if model != "—" else ""
@@ -212,17 +223,20 @@ def main():
 {new_report_row}
 {device_end_marker}
 """
-        r_parts = content.split(reports_start_marker, 1)
+        r_parts = reports_content.split(reports_start_marker, 1)
         before_reports = r_parts[0] + reports_start_marker + "\n"
         reports_and_after = r_parts[1].split(reports_end_marker, 1)
         current_reports = reports_and_after[0].strip()
         after_reports = "\n" + reports_end_marker + reports_and_after[1]
 
         updated_reports = current_reports + "\n\n" + new_dev_block if current_reports else new_dev_block
-        content = before_reports + updated_reports.strip() + after_reports
+        reports_content = before_reports + updated_reports.strip() + after_reports
 
-    # --- 2. Update/Add in SUMMARY_TABLE section ---
-    s_parts = content.split(sum_start_marker, 1)
+    with open(reports_file, "w", encoding="utf-8") as f:
+        f.write(reports_content)
+
+    # --- 2. Update/Add in COMPATIBILITY.md SUMMARY_TABLE ---
+    s_parts = compat_content.split(sum_start_marker, 1)
     before_sum = s_parts[0] + sum_start_marker + "\n"
     sum_and_after = s_parts[1].split(sum_end_marker, 1)
     current_sum = sum_and_after[0].strip()
@@ -230,13 +244,12 @@ def main():
 
     sum_lines = [l for l in current_sum.splitlines() if "*No confirmed reports yet.*" not in l]
 
-    # Check if a row for this device anchor already exists in summary table
-    new_summary_row = f"| [**{device_name}**](#{anchor}) | `{codename}` | `{model}` | {badge_emoji} {result_cat} | [{total_reports} {plural_s} ➔](#{anchor}) |"
+    new_summary_row = f"| [**{device_name}**](REPORTS.md#{anchor}) | `{codename}` | `{model}` | {badge_emoji} {result_cat} | [{total_reports} {plural_s} ➔](REPORTS.md#{anchor}) |"
 
     updated_sum_lines = []
     found_in_summary = False
     for l in sum_lines:
-        if f"(#{anchor})" in l:
+        if f"REPORTS.md#{anchor}" in l or f"(#{anchor})" in l:
             updated_sum_lines.append(new_summary_row)
             found_in_summary = True
         else:
@@ -245,12 +258,12 @@ def main():
     if not found_in_summary:
         updated_sum_lines.append(new_summary_row)
 
-    content = before_sum + "\n".join(updated_sum_lines) + after_sum
+    compat_content = before_sum + "\n".join(updated_sum_lines) + after_sum
 
     with open(compat_file, "w", encoding="utf-8") as f:
-        f.write(content)
+        f.write(compat_content)
 
-    print(f"[SUCCESS] Successfully updated {compat_file} with table and report details for {device_name} ({codename}).")
+    print(f"[SUCCESS] Updated {compat_file} table and {reports_file} details for {device_name} ({codename}).")
 
 if __name__ == "__main__":
     main()
