@@ -51,103 +51,28 @@ Click any device or report link in the table below to view its dedicated test hi
 
 ---
 
-## Step-by-Step Guide to Testing & Reporting
+## Compatibility Reports
 
-Follow this walkthrough to safely test the camera suite on your custom ROM and submit a standardized report.
+Tested this installer on your Motorola device? Help the community by reporting your test outcome!
 
-### Step 1: Pre-Testing Safety Checklist
-> [!CAUTION]
-> Always create a backup before flashing!
-> 1. Reboot to your custom recovery (Lineage Recovery, TWRP, OrangeFox).
-> 2. Perform a backup or verify you have the bootable ROM zip handy in case you need to restore.
-> 3. Verify your device is on an AOSP-based custom ROM running **Android 13 or newer**.
-> 4. **Device Stock Lifecycle:** The device likely needed official stock **Android 13 or 14** somewhere in its official lifecycle to have the `com.motorola.camera3` v9+ suite. Other device generations are welcome to be tested, but are unverified.
-> 5. **Version Independence:** Your stock firmware version **does not need to match** your custom ROM's Android version. You can extract from stock Android 13 or 14 and flash onto newer custom ROMs (e.g. LineageOS Android 15, 16, 17+).
+You can submit your findings directly using our [GitHub Compatibility Report Form](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml).
 
-### Step 2: Acquire Stock Firmware
-1. Download the official stock firmware for your exact device model from:
-   - Motorola Rescue and Smart Assistant (RSA) tool (`C:\ProgramData\RSA\Download\RomFiles\`)
-   - Trusted Motorola firmware repositories (e.g., mirrors.lolinet.com)
-2. Locate the folder with `super.img_sparsechunk.*`, partition images (`product.img`, `system_ext.img`), or stock archive.
+### Report Fields Checklist
+When filling out the report, you will provide:
+1. **Compiler Method:**
+   - `.sh` (Linux Shell Script)
+   - `.ps1` (Windows PowerShell Script)
+   - `.bat` (Windows Batch Launcher)
+2. **Device Information:**
+   - **Device Name:** Official marketing name (e.g., `Moto G Stylus 5G (2023)`)
+   - **Codename:** Hardware board codename (e.g., `genevn`)
+   - **Model Number:** Specific SKU / hardware model (e.g., `XT2315-1`)
+3. **Test Result:**
+   - `Works Perfectly`: All camera sensors (main, ultrawide, macro, selfie) and video recording function without issues.
+   - `Mostly Working`: The app opens, but only specific lenses or camera modes work.
+   - `App Crashes`: The app crashes, force-closes, or hangs on launch.
+   - `App Missing`: The ROM boots normally, but Moto Camera 4 is not installed or visible.
+   - `Won't Boot`: Device enters a bootloop, softbricks, or dumps into recovery.
+4. **Environment:** Custom ROM name/version (e.g., LineageOS 21) and stock firmware build extracted from.
 
-### Step 3: Run the Compiler
-Select the script matching your environment:
-
-- **Linux (`.sh`):**
-  ```bash
-  chmod +x compile_recovery_package_linux.sh
-  ./compile_recovery_package_linux.sh "/path/to/firmware"
-  ```
-- **Windows PowerShell (`.ps1`):**
-  ```powershell
-  .\compile_recovery_package_windows.ps1 -FirmwarePath "C:\path\to\firmware"
-  ```
-- **Windows Batch Launcher (`.bat`):**
-  Double-click `compile_recovery_package_windows.bat` and enter the firmware directory path.
-
-Verify that the compiler finishes with:
-```text
-[SUCCESS] Flashable recovery zip created at: output/MotoCamera4_<device>_Recovery_Installer.zip
-```
-
-### Step 4: Sideload in Recovery
-1. Reboot your phone into **Recovery Mode**.
-2. Select **Apply Update** $\rightarrow$ **Apply from ADB** (or **ADB Sideload** in TWRP/OrangeFox).
-3. Connect USB and run:
-   ```bash
-   adb sideload output/MotoCamera4_<device>_Recovery_Installer.zip
-   ```
-4. If recovery flags a signature prompt, select **Install anyway**.
-5. Reboot to system.
-
-### Step 5: Post-Boot Verification Procedure
-Check each of the following points:
-
-1. **App Installed?**
-   - Check if **Moto Camera 4** (and companion photo services) appear in your launcher/app drawer.
-   - If missing $\rightarrow$ Result is **`App Missing`**.
-2. **App Launches?**
-   - Tap the camera icon. Does the camera viewfinder load, or does it instantly crash / freeze?
-   - If it crashes on open $\rightarrow$ Result is **`App Crashes`**.
-3. **Sensor Switching:**
-   - **Main Sensor (1x):** Can you capture full-resolution photos?
-   - **Ultrawide (0.5x):** Does switching to wide angle work?
-   - **Macro:** Can you switch to macro mode?
-   - **Front Camera:** Does the selfie camera work?
-   - If some switch but others crash/black-screen $\rightarrow$ Result is **`Mostly Working`**.
-   - If every sensor and mode works $\rightarrow$ Result is **`Works Perfectly`**.
-4. **Phone Boot:**
-   - If the device got stuck on the bootloader/logo $\rightarrow$ Result is **`Won't Boot`**.
-
-### Step 6: Capturing Logs (For Crashes or Missing App)
-If the app crashed (`App Crashes`) or your phone had issues, capture logs via ADB:
-```bash
-# Capture Camera and Runtime crash logs:
-adb logcat -d -s AndroidRuntime:E CameraService:E libc:E > camera_crash.log
-
-# Or pull the recovery log if sideload had errors:
-adb pull /tmp/recovery.log recovery.log
-```
-
----
-
-## How to Submit Your Report
-
-### Use the GitHub Issue Form
-Click the link below to open a pre-formatted web form:
-
-👉 **[Open Compatibility Report Form](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml)**
-
-Fill in the required fields:
-- **Compiler Method:** `.sh`, `.ps1`, or `.bat`
-- **Device Marketing Name:** (e.g., `Moto G Stylus 5G (2023)`)
-- **Device Codename:** (e.g., `genevn`)
-- **Device Model #:** (e.g., `XT2315-1`)
-- **Test Result:**
-  - `Works Perfectly`
-  - `Mostly Working`
-  - `App Crashes`
-  - `App Missing`
-  - `Won't Boot`
-- **Custom ROM & Android Version:** (e.g., `LineageOS 21 (Android 14)`)
-- **Sensor Breakdown & Logs:** Any relevant details or crash logs.
+👉 **[Submit a Device Compatibility Report](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml)**

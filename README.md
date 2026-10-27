@@ -44,35 +44,6 @@ Extracts Motorola Camera components for devices using the MotCamera4 suite (`com
 
 ---
 
-## Compatibility Reports
-
-Tested this installer on your Motorola device? Help the community by reporting your test outcome!
-
-You can submit your findings directly using our [GitHub Compatibility Report Form](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml).
-
-### Report Fields Checklist
-When filling out the report, you will provide:
-1. **Compiler Method:**
-   - `.sh` (Linux Shell Script)
-   - `.ps1` (Windows PowerShell Script)
-   - `.bat` (Windows Batch Launcher)
-2. **Device Information:**
-   - **Device Name:** Official marketing name (e.g., `Moto G Stylus 5G (2023)`)
-   - **Codename:** Hardware board codename (e.g., `genevn`)
-   - **Model Number:** Specific SKU / hardware model (e.g., `XT2315-1`)
-3. **Test Result:**
-   - `Works Perfectly`: All camera sensors (main, ultrawide, macro, selfie) and video recording function without issues.
-   - `Mostly Working`: The app opens, but only specific lenses or camera modes work.
-   - `App Crashes`: The app crashes, force-closes, or hangs on launch.
-   - `App Missing`: The ROM boots normally, but Moto Camera 4 is not installed or visible.
-   - `Won't Boot`: Device enters a bootloop, softbricks, or dumps into recovery.
-4. **Environment:** Custom ROM name/version (e.g., LineageOS 21) and stock firmware build extracted from.
-
-👉 **[Submit a Device Compatibility Report](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml)**  
-📖 **[View the Full Compatibility Matrix & Walkthrough in COMPATIBILITY.md](COMPATIBILITY.md)**
-
----
-
 ## Installation
 
 ### 1. Prerequisites
