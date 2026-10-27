@@ -51,7 +51,7 @@ Click any device or report link in the table below to view its dedicated test hi
 
 ---
 
-## Compatibility Reports
+## Submitting a Device Compatibility Report
 
 Tested this installer on your Motorola device? Help the community by reporting your test outcome!
 
