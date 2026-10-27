@@ -29,9 +29,10 @@ Extracts Motorola Camera components for devices using the MotCamera4 suite (`com
 - **Device Lifecycle Requirement:** The target device likely needs to have officially supported stock **Android 13 or Android 14** somewhere in its official lifecycle (either released with it or received as an official update) to contain the modern MotCamera4 suite and compatible camera HAL stack.
   > [!NOTE]
   > This has not been verified across every Motorola generation. Users with devices running earlier or later stock versions are welcome to test and submit compatibility reports!
+- **Cross-Version Forward Compatibility:** The stock firmware Android version **does not need to match** your custom ROM's Android version! You can extract the camera stack from official stock firmware (e.g. stock Android 13 or 14) and run it on much newer custom ROM versions (tested and confirmed working with stock Android 14 camera components running on LineageOS Android 17).
 - **Custom ROMs:** LineageOS, crDroid, PixelOS, Evolution X, or any AOSP-based custom ROM.
-- **Custom ROM Android Versions:** Android 13+ (Android 13, 14, 15, 16+).
-- **Firmware Requirement:** Official Motorola stock firmware for your device matching your target Android version (no specific build required, as long as it contains the MotCamera4 suite).
+- **Custom ROM Android Versions:** Android 13+ (Android 13, 14, 15, 16, 17+).
+- **Firmware Requirement:** Any official Motorola stock firmware for your device that includes the MotCamera4 suite.
 - **Recovery:** Any custom recovery supporting sideload or zip flashing (Lineage Recovery, TWRP, OrangeFox).
 - **OTA Survival:** Includes an `addon.d` survival script so camera components persist across custom ROM updates without needing to re-flash.
 - **Installation Timing:** Can be installed at any time—no data wipe or first-boot installation required.

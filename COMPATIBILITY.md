@@ -62,6 +62,7 @@ Follow this walkthrough to safely test the camera suite on your custom ROM and s
 > 2. Perform a backup or verify you have the bootable ROM zip handy in case you need to restore.
 > 3. Verify your device is on an AOSP-based custom ROM running **Android 13 or newer**.
 > 4. **Device Stock Lifecycle:** The device likely needed official stock **Android 13 or 14** somewhere in its official lifecycle to have the `com.motorola.camera3` v9+ suite. Other device generations are welcome to be tested, but are unverified.
+> 5. **Version Independence:** Your stock firmware version **does not need to match** your custom ROM's Android version. You can extract from stock Android 13 or 14 and flash onto newer custom ROMs (e.g. LineageOS Android 15, 16, 17+).
 
 ### Step 2: Acquire Stock Firmware
 1. Download the official stock firmware for your exact device model from:
