@@ -58,11 +58,11 @@ body:
       label: Test Result
       description: "What was the final outcome after flashing the recovery package?"
       options:
-        - "all sensors (All cameras, auxiliary lenses, and modes working)"
-        - "some sensors (Only specific cameras work, e.g. main works but wide/macro fails)"
-        - "app wouldn't launch (App crashes, force closes, or freezes on open)"
-        - "no app installed (Device booted normally, but Moto Camera 4 was not installed/visible)"
-        - "phone wouldn't boot (Bootloop, softbrick, or dumps directly into recovery)"
+        - "Works Perfectly (All cameras, auxiliary lenses, and modes working)"
+        - "Mostly Working (Only specific cameras or modes work; details below)"
+        - "App Crashes (App crashes, force closes, or freezes on open)"
+        - "App Missing (Device booted normally, but Moto Camera 4 was not installed/visible)"
+        - "Won't Boot (Bootloop, softbrick, or dumps directly into recovery)"
     validations:
       required: true
 
@@ -99,7 +99,6 @@ body:
         - Slow Motion: [Working / Not Working / Untested]
         - Portrait Mode: [Working / Not Working / Untested]
         - Pro Mode: [Working / Not Working / Untested]
-        - Quick Capture Gesture (Double twist): [Working / Not Working / Untested]
     validations:
       required: false
 
@@ -107,7 +106,7 @@ body:
     id: logs_and_notes
     attributes:
       label: Logs & Additional Notes
-      description: "If you experienced issues ('app wouldn't launch', 'phone wouldn't boot', etc.), please provide logcat output, recovery logs, or additional observations."
+      description: "If you experienced issues ('App Crashes', 'App Missing', 'Won't Boot', etc.), please provide logcat output, recovery logs, or additional observations."
       placeholder: "Paste relevant output from `adb logcat -s AndroidRuntime:E CameraService:E` or `/tmp/recovery.log` here."
     validations:
       required: false
