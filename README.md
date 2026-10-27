@@ -7,7 +7,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="License"></a>
 </p>
 
-Extracts Motorola Camera 4, companion AI services, vendor hardware abstraction layers (HALs), and multi-camera tuning libraries directly from Motorola stock firmware and packages them into a flashable zip for recovery sideload on custom ROMs.
+Extracts Motorola Camera components for devices using the MotCamera4 suite (`com.motorola.camera3` v9+), companion AI services, vendor hardware abstraction layers (HALs), and multi-camera tuning libraries directly from Motorola stock firmware and packages them into a flashable zip for recovery sideload on custom ROMs (Android 13+).
 
 > [!NOTE]
 > **No Proprietary Files Hosted**:  
@@ -25,9 +25,13 @@ Extracts Motorola Camera 4, companion AI services, vendor hardware abstraction l
 
 ## Compatibility
 
+- **Target Camera Suite:** **Moto Camera 4** (`com.motorola.camera3` version 9.x+).
+- **Device Lifecycle Requirement:** The target device likely needs to have officially supported stock **Android 13 or Android 14** somewhere in its official lifecycle (either released with it or received as an official update) to contain the modern MotCamera4 suite and compatible camera HAL stack.
+  > [!NOTE]
+  > This has not been verified across every Motorola generation. Users with devices running earlier or later stock versions are welcome to test and submit compatibility reports!
 - **Custom ROMs:** LineageOS, crDroid, PixelOS, Evolution X, or any AOSP-based custom ROM.
-- **Android Versions:** Android 13+ (Android 13, 14, 15+).
-- **Firmware Requirement:** Official Motorola stock firmware for your device matching your Android version (no specific build required, as long as it is official stock Android 13+).
+- **Custom ROM Android Versions:** Android 13+ (Android 13, 14, 15, 16+).
+- **Firmware Requirement:** Official Motorola stock firmware for your device matching your target Android version (no specific build required, as long as it contains the MotCamera4 suite).
 - **Recovery:** Any custom recovery supporting sideload or zip flashing (Lineage Recovery, TWRP, OrangeFox).
 - **OTA Survival:** Includes an `addon.d` survival script so camera components persist across custom ROM updates without needing to re-flash.
 - **Installation Timing:** Can be installed at any time—no data wipe or first-boot installation required.
