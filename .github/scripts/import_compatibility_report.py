@@ -7,7 +7,6 @@ def clean_cell(text: str) -> str:
     """Sanitize text for markdown table cells."""
     if not text or text.strip() in ("_No response_", "None", "n/a", "N/A"):
         return "—"
-    # Replace newlines with spaces and escape pipe characters
     cleaned = text.strip().replace("\r", "").replace("\n", " ")
     cleaned = cleaned.replace("|", "\\|")
     return cleaned
@@ -114,11 +113,21 @@ def main():
     with open(compat_file, "r", encoding="utf-8") as f:
         content = f.read()
 
+    # If this issue was previously imported, remove its old row to avoid duplicates on re-runs
+    issue_marker = f"[#{issue_number}](" if issue_number else None
+    if issue_marker and issue_marker in content:
+        print(f"[INFO] Issue #{issue_number} already present. Replacing existing entry.")
+        cleaned_lines = [
+            l for l in content.splitlines()
+            if not (issue_marker in l and l.strip().startswith("|"))
+        ]
+        content = "\n".join(cleaned_lines)
+
     if category_heading not in content:
         print(f"[ERROR] Category heading '{category_heading}' not found in {compat_file}.")
         sys.exit(1)
 
-    # Split content around category
+    # Split content around target category
     parts = content.split(category_heading, 1)
     before_cat = parts[0] + category_heading
     after_cat = parts[1]

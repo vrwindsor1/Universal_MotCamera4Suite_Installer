@@ -43,8 +43,7 @@ Every tested device outcome is classified into one of five categories:
 
 | Device Name | Codename | Model # | Compiler Method | Custom ROM | Stock Firmware Used | Reporter / Notes |
 | :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| *No confirmed reports yet.* | — | — | — | — | — | *Submit a report below to add your device.* |
-
+| **Moto G Stylus 5G (2023)** | `genevn` | `XT2315-1` | `.sh` | LineageOS (Android 17) | U1TGNS34.42_86_2_38 (RSA stock Android 14 dump) | [@vrwindsor1](https://github.com/vrwindsor1) in [#3](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/3) |
 ---
 
 ### 🟡 Mostly Working
