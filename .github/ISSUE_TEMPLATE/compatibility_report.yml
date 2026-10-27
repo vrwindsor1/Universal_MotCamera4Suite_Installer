@@ -1,0 +1,125 @@
+name: "Device Compatibility Report"
+description: "Report test results for your Motorola device and custom ROM"
+title: "[Compatibility]: <Device Name> (<Codename>)"
+labels: ["compatibility", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Community Device Compatibility Report
+        Thank you for testing the **Universal MotCamera4 Suite Installer**! Your report helps maintain our community hardware compatibility list.
+        
+        Before submitting, please make sure you have:
+        1. Taken a full backup in recovery before flashing.
+        2. Extracted files from official stock firmware matching your device model.
+
+  - type: dropdown
+    id: compiler_method
+    attributes:
+      label: Compiler Method
+      description: Which script did you use to generate the flashable zip?
+      options:
+        - ".sh (Linux Shell Script)"
+        - ".ps1 (Windows PowerShell Script)"
+        - ".bat (Windows Batch Launcher)"
+    validations:
+      required: true
+
+  - type: input
+    id: device_name
+    attributes:
+      label: Device Marketing Name
+      description: "Official device marketing name (e.g., Moto G Stylus 5G (2023), Motorola Edge 40 Pro, Razr+ 2024)."
+      placeholder: "e.g. Moto G Stylus 5G (2023)"
+    validations:
+      required: true
+
+  - type: input
+    id: device_codename
+    attributes:
+      label: Device Codename
+      description: "Internal board codename (e.g., genevn, rtwo, manaus, bronco, eqe)."
+      placeholder: "e.g. genevn"
+    validations:
+      required: true
+
+  - type: input
+    id: device_model
+    attributes:
+      label: Device Model Number
+      description: "Specific hardware SKU / Model # (found in Settings > About Phone, fastboot getvar product, or box)."
+      placeholder: "e.g. XT2315-1, XT2301-4, XT2417-1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: result
+    attributes:
+      label: Test Result
+      description: "What was the final outcome after flashing the recovery package?"
+      options:
+        - "all sensors (All cameras, auxiliary lenses, and modes working)"
+        - "some sensors (Only specific cameras work, e.g. main works but wide/macro fails)"
+        - "app wouldn't launch (App crashes, force closes, or freezes on open)"
+        - "no app installed (Device booted normally, but Moto Camera 4 was not installed/visible)"
+        - "phone wouldn't boot (Bootloop, softbrick, or dumps directly into recovery)"
+    validations:
+      required: true
+
+  - type: input
+    id: custom_rom
+    attributes:
+      label: Custom ROM & Android Version
+      description: "Custom ROM name, version, and Android base."
+      placeholder: "e.g. LineageOS 21 (Android 14), crDroid 10.8 (Android 14), PixelOS 14"
+    validations:
+      required: true
+
+  - type: input
+    id: stock_firmware
+    attributes:
+      label: Stock Firmware Source / Build
+      description: "What stock Motorola firmware build or version did you extract from?"
+      placeholder: "e.g. T1TPS33.29-87-1-6 (RSA stock Android 13 dump)"
+    validations:
+      required: false
+
+  - type: textarea
+    id: sensor_breakdown
+    attributes:
+      label: Sensor & Feature Breakdown
+      description: "Please specify which cameras and features work or fail."
+      value: |
+        - Main Camera (Photo): [Working / Not Working / Untested]
+        - Ultrawide: [Working / Not Working / Untested / N/A]
+        - Macro: [Working / Not Working / Untested / N/A]
+        - Telephoto: [Working / Not Working / Untested / N/A]
+        - Front (Selfie) Camera: [Working / Not Working / Untested]
+        - Video Recording (1080p / 4K): [Working / Not Working / Untested]
+        - Slow Motion: [Working / Not Working / Untested]
+        - Portrait Mode: [Working / Not Working / Untested]
+        - Pro Mode: [Working / Not Working / Untested]
+        - Quick Capture Gesture (Double twist): [Working / Not Working / Untested]
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs_and_notes
+    attributes:
+      label: Logs & Additional Notes
+      description: "If you experienced issues ('app wouldn't launch', 'phone wouldn't boot', etc.), please provide logcat output, recovery logs, or additional observations."
+      placeholder: "Paste relevant output from `adb logcat -s AndroidRuntime:E CameraService:E` or `/tmp/recovery.log` here."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: verifications
+    attributes:
+      label: Checklist
+      options:
+        - label: "I tested this on an AOSP/LineageOS-based custom ROM running Android 13 or newer."
+          required: true
+        - label: "I used stock Motorola firmware corresponding to my specific device model."
+          required: true
+        - label: "I checked existing compatibility issues/reports to prevent duplicate entries."
+          required: true

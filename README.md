@@ -32,13 +32,18 @@ Extracts Motorola Camera 4, companion AI services, vendor hardware abstraction l
 - **OTA Survival:** Includes an `addon.d` survival script so camera components persist across custom ROM updates without needing to re-flash.
 - **Installation Timing:** Can be installed at any time—no data wipe or first-boot installation required.
 
+> [!TIP]
+> 📋 **Community Device Compatibility Matrix & Testing Guide**:  
+> We maintain a live hardware compatibility list and detailed testing walkthrough on the dedicated [`compatibility-list`](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/tree/compatibility-list) branch.  
+> 👉 **[Explore the Compatibility List & Step-by-Step Guide](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/tree/compatibility-list)**
+
 ---
 
-## Devices
+## Devices & Community Reports
 
 ### Tested Devices
 Verified to compile, sideload, and run with full multi-camera functionality:
-- **Moto G Stylus 5G (2023)** (`genevn`)
+- **Moto G Stylus 5G (2023)** (`genevn` / `XT2315-1`) — **All sensors functional**
 
 ### Untested (Expected Compatible)
 Any Motorola device running official stock Android 13+ with the Moto Camera 4 suite should be compatible, including:
@@ -60,6 +65,35 @@ Any Motorola device running official stock Android 13+ with the Moto Camera 4 su
 - **ThinkPhone & Other Series:**
   - Lenovo ThinkPhone by Motorola (`bronco`)
   - Motorola Defy 2
+
+---
+
+## Submitting a Compatibility Report
+
+Tested this installer on your Motorola device? Help the community by reporting your test outcome!
+
+You can submit your findings directly using our [GitHub Compatibility Report Form](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml).
+
+### Report Fields Checklist
+When filling out the report, you will be asked for:
+1. **Compiler Method:**
+   - `.sh` (Linux Shell Script)
+   - `.ps1` (Windows PowerShell Script)
+   - `.bat` (Windows Batch Launcher)
+2. **Device Information:**
+   - **Device Name:** Official marketing name (e.g., `Moto G Stylus 5G (2023)`, `Motorola Edge 40 Pro`)
+   - **Codename:** Hardware board codename (e.g., `genevn`, `rtwo`, `manaus`, `bronco`)
+   - **Model Number:** Specific SKU / hardware model (e.g., `XT2315-1`, `XT2301-4`)
+3. **Test Result:**
+   - `all sensors`: All camera sensors (main, ultrawide, macro, selfie) and video recording function properly.
+   - `some sensors`: The app opens, but only specific lenses or modes work.
+   - `app wouldn't launch`: The app crashes, force-closes, or hangs on opening.
+   - `no app installed`: The ROM boots normally, but Moto Camera 4 is not installed or visible.
+   - `phone wouldn't boot`: Device enters a bootloop, softbricks, or dumps into recovery.
+4. **Environment:** Custom ROM name/version (e.g., LineageOS 21) and stock firmware build extracted from.
+
+👉 **[Submit a Device Compatibility Report](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml)**  
+📖 **[Read the Full Testing & Reporting Guide on the `compatibility-list` branch](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/tree/compatibility-list)**
 
 ---
 

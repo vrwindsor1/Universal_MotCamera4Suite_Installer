@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Device Compatibility Matrix & Guide"
+    url: "https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/tree/compatibility-list"
+    about: "View the community-maintained device compatibility table and testing instructions on the dedicated compatibility-list branch."
