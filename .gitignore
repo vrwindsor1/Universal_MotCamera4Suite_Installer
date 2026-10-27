@@ -1,0 +1,23 @@
+# Generated output files
+output/
+*.zip
+*.txt
+
+# Build and temporary working directories
+work/
+temp/
+tmp/
+build/
+*.tmp
+
+# Operating system / IDE artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Raw firmware images and dumps
+*.img
+super.img_sparsechunk.*
