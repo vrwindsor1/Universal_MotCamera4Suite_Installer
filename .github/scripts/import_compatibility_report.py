@@ -128,114 +128,129 @@ def main():
     new_report_row = f"| {report_link} by {reporter_str} | {compiler} | {custom_rom} | {stock_fw} | {badge_emoji} {result_cat} | {features_summary} |"
     print("New Report Row:", new_report_row)
 
-    compat_file = "COMPATIBILITY.md"
-    reports_file = "REPORTS.md"
-
-    if not os.path.exists(compat_file):
-        print(f"[ERROR] {compat_file} does not exist.")
-        sys.exit(1)
-    if not os.path.exists(reports_file):
-        print(f"[ERROR] {reports_file} does not exist.")
-        sys.exit(1)
-
-    with open(compat_file, "r", encoding="utf-8") as f:
-        compat_content = f.read()
-
-    with open(reports_file, "r", encoding="utf-8") as f:
-        reports_content = f.read()
-
-    # Anchor markers
-    sum_start_marker = "<!-- SUMMARY_TABLE_START -->"
-    sum_end_marker = "<!-- SUMMARY_TABLE_END -->"
-    reports_start_marker = "<!-- DEVICE_REPORTS_START -->"
-    reports_end_marker = "<!-- DEVICE_REPORTS_END -->"
-
-    if sum_start_marker not in compat_content or sum_end_marker not in compat_content:
-        print(f"[ERROR] Required table markers not found in {compat_file}.")
-        sys.exit(1)
-
-    if reports_start_marker not in reports_content or reports_end_marker not in reports_content:
-        print(f"[ERROR] Required reports markers not found in {reports_file}.")
-        sys.exit(1)
+    os.makedirs("reports", exist_ok=True)
 
     device_key = re.sub(r"[^a-zA-Z0-9_-]", "", codename.lower())
     if not device_key or device_key == "—":
         device_key = re.sub(r"[^a-zA-Z0-9_-]", "", device_name.lower())
 
-    anchor = device_key
-    device_start_marker = f"<!-- DEVICE: {anchor} -->"
-    device_end_marker = f"<!-- /DEVICE: {anchor} -->"
+    device_file = os.path.join("reports", f"{device_key}.md")
     issue_marker = f"[#{issue_number}](" if issue_number else None
 
-    # --- 1. Update/Add in REPORTS.md ---
-    if device_start_marker in reports_content and device_end_marker in reports_content:
-        print(f"[INFO] Device '{anchor}' already has reports in {reports_file}. Updating section...")
-        r_parts = reports_content.split(device_start_marker, 1)
-        before_dev = r_parts[0]
-        dev_and_rest = r_parts[1].split(device_end_marker, 1)
-        dev_block = dev_and_rest[0]
-        after_dev = dev_and_rest[1]
+    # --- 1. Create or Update reports/{device_key}.md ---
+    if os.path.exists(device_file):
+        print(f"[INFO] Updating existing report page: {device_file}")
+        with open(device_file, "r", encoding="utf-8") as f:
+            dev_content = f.read()
 
-        # Extract existing rows from table
-        lines = dev_block.strip().splitlines()
-        existing_report_rows = []
+        # Extract existing rows
+        table_lines = []
         table_found = False
+        other_lines = []
 
-        for l in lines:
-            if re.match(r"^\|\s*:?---", l):
+        for line in dev_content.splitlines():
+            if re.match(r"^\|\s*:?---", line):
                 table_found = True
                 continue
-            if table_found and l.strip().startswith("|"):
-                if issue_marker and issue_marker in l:
-                    continue  # Deduplicate on re-run / edit
-                existing_report_rows.append(l.strip())
+            if table_found and line.strip().startswith("|"):
+                if issue_marker and issue_marker in line:
+                    continue  # Deduplicate on issue edit / re-run
+                table_lines.append(line.strip())
 
-        existing_report_rows.append(new_report_row)
-        total_reports = len(existing_report_rows)
-        plural_s = "Report" if total_reports == 1 else "Reports"
-        model_str = f" / `{model}`" if model != "—" else ""
+        table_lines.append(new_report_row)
+        total_reports = len(table_lines)
 
-        new_dev_block = f"""
-<a id="{anchor}"></a>
-### 📱 {device_name} (`{codename}`{model_str})
+        # Update metadata lines
+        dev_content = re.sub(
+            r"- \*\*Current Overall Status:\*\* .*",
+            f"- **Current Overall Status:** {badge_emoji} **{result_cat}**",
+            dev_content
+        )
+        dev_content = re.sub(
+            r"- \*\*Total Community Reports:\*\* .*",
+            f"- **Total Community Reports:** {total_reports}",
+            dev_content
+        )
 
-**Overall Status:** {badge_emoji} **{result_cat}** &bull; **Total Reports:** {total_reports}
+        # If new model was specified and not in models, append it
+        if model != "—":
+            m_match = re.search(r"- \*\*Model Number\(s\):\*\* (.*)", dev_content)
+            if m_match:
+                existing_models = m_match.group(1).strip()
+                if model not in existing_models:
+                    updated_models = f"{existing_models}, `{model}`"
+                    dev_content = dev_content.replace(m_match.group(0), f"- **Model Number(s):** {updated_models}")
 
-| Report | Compiler | Custom ROM | Stock Firmware | Outcome | Tested Features / Notes |
-| :--- | :---: | :--- | :--- | :---: | :--- |
-""" + "\n".join(existing_report_rows) + "\n"
+        # Replace table rows
+        parts = dev_content.split("| :--- | :---: | :--- | :--- | :---: | :--- |\n", 1)
+        if len(parts) == 2:
+            footer_parts = parts[1].split("\n---", 1)
+            new_table_content = "\n".join(table_lines) + "\n\n---"
+            dev_content = parts[0] + "| :--- | :---: | :--- | :--- | :---: | :--- |\n" + new_table_content + (footer_parts[1] if len(footer_parts) == 2 else "")
 
-        reports_content = before_dev + device_start_marker + new_dev_block + device_end_marker + after_dev
+        with open(device_file, "w", encoding="utf-8") as f:
+            f.write(dev_content)
+
     else:
-        print(f"[INFO] Adding new device section in {reports_file} for '{device_name}' ({codename})...")
+        print(f"[INFO] Creating new report page: {device_file}")
         total_reports = 1
-        plural_s = "Report"
-        model_str = f" / `{model}`" if model != "—" else ""
+        model_val = f"`{model}`" if model != "—" else "—"
 
-        new_dev_block = f"""{device_start_marker}
-<a id="{anchor}"></a>
-### 📱 {device_name} (`{codename}`{model_str})
+        new_dev_content = f"""# Device Report: {device_name} (`{codename}`)
 
-**Overall Status:** {badge_emoji} **{result_cat}** &bull; **Total Reports:** 1
+<p align="center">
+  <img src="../assets/motcamera4_logo.png" width="96" height="96" alt="MotCamera4 Logo">
+  <br>
+  <a href="../COMPATIBILITY.md"><img src="https://img.shields.io/badge/⬅%20Back%20to-Compatibility%20Matrix-blue?style=flat-square" alt="Compatibility Matrix"></a>
+  <a href="https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml"><img src="https://img.shields.io/badge/Submit-New%20Report-success?style=flat-square&logo=github" alt="Submit Report"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="License"></a>
+</p>
+
+## Device Information
+
+- **Marketing Name:** {device_name}
+- **Codename:** `{codename}`
+- **Model Number(s):** {model_val}
+- **Current Overall Status:** {badge_emoji} **{result_cat}**
+- **Total Community Reports:** 1
+
+---
+
+## Community Test Reports
 
 | Report | Compiler | Custom ROM | Stock Firmware | Outcome | Tested Features / Notes |
 | :--- | :---: | :--- | :--- | :---: | :--- |
 {new_report_row}
-{device_end_marker}
+
+---
+
+<p align="center">
+  <a href="../COMPATIBILITY.md">⬅ Back to Full Compatibility Matrix</a> &bull; <a href="../README.md">Installer Documentation</a>
+</p>
 """
-        r_parts = reports_content.split(reports_start_marker, 1)
-        before_reports = r_parts[0] + reports_start_marker + "\n"
-        reports_and_after = r_parts[1].split(reports_end_marker, 1)
-        current_reports = reports_and_after[0].strip()
-        after_reports = "\n" + reports_end_marker + reports_and_after[1]
+        with open(device_file, "w", encoding="utf-8") as f:
+            f.write(new_dev_content)
 
-        updated_reports = current_reports + "\n\n" + new_dev_block if current_reports else new_dev_block
-        reports_content = before_reports + updated_reports.strip() + after_reports
+    # --- 2. Update COMPATIBILITY.md Summary Table ---
+    compat_file = "COMPATIBILITY.md"
+    if not os.path.exists(compat_file):
+        print(f"[ERROR] {compat_file} does not exist.")
+        sys.exit(1)
 
-    with open(reports_file, "w", encoding="utf-8") as f:
-        f.write(reports_content)
+    with open(compat_file, "r", encoding="utf-8") as f:
+        compat_content = f.read()
 
-    # --- 2. Update/Add in COMPATIBILITY.md SUMMARY_TABLE ---
+    sum_start_marker = "<!-- SUMMARY_TABLE_START -->"
+    sum_end_marker = "<!-- SUMMARY_TABLE_END -->"
+
+    if sum_start_marker not in compat_content or sum_end_marker not in compat_content:
+        print(f"[ERROR] Required table markers not found in {compat_file}.")
+        sys.exit(1)
+
+    plural_s = "Report" if total_reports == 1 else "Reports"
+    rel_device_path = f"reports/{device_key}.md"
+    new_summary_row = f"| [**{device_name}**]({rel_device_path}) | `{codename}` | `{model}` | {badge_emoji} {result_cat} | [{total_reports} {plural_s} ➔]({rel_device_path}) |"
+
     s_parts = compat_content.split(sum_start_marker, 1)
     before_sum = s_parts[0] + sum_start_marker + "\n"
     sum_and_after = s_parts[1].split(sum_end_marker, 1)
@@ -244,12 +259,10 @@ def main():
 
     sum_lines = [l for l in current_sum.splitlines() if "*No confirmed reports yet.*" not in l]
 
-    new_summary_row = f"| [**{device_name}**](REPORTS.md#{anchor}) | `{codename}` | `{model}` | {badge_emoji} {result_cat} | [{total_reports} {plural_s} ➔](REPORTS.md#{anchor}) |"
-
     updated_sum_lines = []
     found_in_summary = False
     for l in sum_lines:
-        if f"REPORTS.md#{anchor}" in l or f"(#{anchor})" in l:
+        if f"reports/{device_key}.md" in l or f"`{codename}`" in l:
             updated_sum_lines.append(new_summary_row)
             found_in_summary = True
         else:
@@ -263,7 +276,7 @@ def main():
     with open(compat_file, "w", encoding="utf-8") as f:
         f.write(compat_content)
 
-    print(f"[SUCCESS] Updated {compat_file} table and {reports_file} details for {device_name} ({codename}).")
+    print(f"[SUCCESS] Updated {compat_file} table and {device_file} for {device_name} ({codename}).")
 
 if __name__ == "__main__":
     main()

@@ -4,7 +4,7 @@
   <img src="assets/motcamera4_logo.png" width="96" height="96" alt="MotCamera4 Logo">
   <br>
   <a href="README.md"><img src="https://img.shields.io/badge/Installer-Documentation-blue?style=flat-square" alt="README"></a>
-  <a href="REPORTS.md"><img src="https://img.shields.io/badge/Detailed-Device%20Reports-purple?style=flat-square" alt="Detailed Reports"></a>
+  <a href="reports/"><img src="https://img.shields.io/badge/Device-Reports%20Folder-purple?style=flat-square" alt="Device Reports"></a>
   <a href="https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml"><img src="https://img.shields.io/badge/Submit-Compatibility%20Report-success?style=flat-square&logo=github" alt="Submit Report"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="License"></a>
 </p>
@@ -19,7 +19,7 @@ This document tracks community-verified Motorola devices, tested custom ROMs, co
 ## Quick Links
 
 - 🏠 **[Installer Documentation & Source (README)](README.md)**
-- 📋 **[Detailed Device Reports & Sensor Breakdowns (REPORTS.md)](REPORTS.md)**
+- 📂 **[Individual Device Reports Directory (reports/)](reports/)**
 - 📝 **[Submit a Compatibility Report (GitHub Form)](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml)**
 - 🐛 **[Report a Tool Bug / Script Issue](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=bug_report.yml)**
 
@@ -41,12 +41,12 @@ Every tested device outcome is classified into one of five categories:
 
 ## Device Compatibility Matrix
 
-Click any device or report link in the table below to view its full test history, custom ROMs, and sensor breakdowns on the [Detailed Reports](REPORTS.md) page:
+Click any device or report link in the table below to view its dedicated test history, custom ROMs, and sensor breakdowns in the [`reports/`](reports/) directory:
 
 <!-- SUMMARY_TABLE_START -->
 | Device Name | Codename | Model # | Status | Reports |
 | :--- | :--- | :--- | :---: | :---: |
-| [**Moto G Stylus 5G (2023)**](REPORTS.md#genevn) | `genevn` | `XT2315-1` | 🟢 Works Perfectly | [1 Report ➔](REPORTS.md#genevn) |
+| [**Moto G Stylus 5G (2023)**](reports/genevn.md) | `genevn` | `XT2315-1` | 🟢 Works Perfectly | [1 Report ➔](reports/genevn.md) |
 <!-- SUMMARY_TABLE_END -->
 
 ---
