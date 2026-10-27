@@ -36,6 +36,7 @@ Every tested device outcome is classified into one of the following categories:
 | 🔴 | **`App Crashes`** | Sideload finishes and the app is installed, but the app immediately crashes, freezes, or force-closes upon launch. |
 | ⚪ | **`App Missing`** | Sideload completes, but after booting the ROM, Moto Camera 4 is completely absent from the app drawer and system partition. |
 | ⛔ | **`Won't Boot`** | The flashed package caused the device to bootloop, dump into recovery, or hang on the boot animation (softbrick). |
+| ⚠️ | **`Won't Compile`** | The compiler script encountered an error, missing dependency, or failed partition extraction and could not generate a flashable zip. |
 | ❔ | **`Untested`** | No community-verified test reports submitted yet, but this device is expected by the developer to be working based on its stock MotCamera4 architecture. |
 
 ---
@@ -93,6 +94,7 @@ When filling out the report, you will provide:
    - `App Crashes`: The app crashes, force-closes, or hangs on launch.
    - `App Missing`: The ROM boots normally, but Moto Camera 4 is not installed or visible.
    - `Won't Boot`: Device enters a bootloop, softbricks, or dumps into recovery.
+   - `Won't Compile`: The compiler script fails to extract firmware or generate the zip package.
 4. **Environment:** Custom ROM name/version (e.g., LineageOS 21) and stock firmware build extracted from.
 
 👉 **[Submit a Device Compatibility Report](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml)**

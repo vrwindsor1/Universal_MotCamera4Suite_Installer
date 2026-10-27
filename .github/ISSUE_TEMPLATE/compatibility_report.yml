@@ -63,6 +63,7 @@ body:
         - "App Crashes (App crashes, force closes, or freezes on open)"
         - "App Missing (Device booted normally, but Moto Camera 4 was not installed/visible)"
         - "Won't Boot (Bootloop, softbrick, or dumps directly into recovery)"
+        - "Won't Compile (Compiler script failed or halted during package generation)"
     validations:
       required: true
 

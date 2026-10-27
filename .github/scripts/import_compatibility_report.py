@@ -89,6 +89,8 @@ def determine_badge(result_text: str) -> tuple[str, str]:
         return "⚪", "App Missing"
     elif "won't boot" in res or "wont boot" in res:
         return "⛔", "Won't Boot"
+    elif "won't compile" in res or "wont compile" in res or "compile fail" in res:
+        return "⚠️", "Won't Compile"
     elif "untested" in res:
         return "❔", "Untested"
     return "⚪", clean_cell(result_text)
