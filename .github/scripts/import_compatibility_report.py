@@ -137,32 +137,35 @@ def main():
         content = f.read()
 
     # Anchor markers
-    list_start_marker = "<!-- DEVICE_LIST_START -->"
-    list_end_marker = "<!-- DEVICE_LIST_END -->"
+    sum_start_marker = "<!-- SUMMARY_TABLE_START -->"
+    sum_end_marker = "<!-- SUMMARY_TABLE_END -->"
+    reports_start_marker = "<!-- DEVICE_REPORTS_START -->"
+    reports_end_marker = "<!-- DEVICE_REPORTS_END -->"
 
-    if list_start_marker not in content or list_end_marker not in content:
-        print(f"[ERROR] Anchor markers {list_start_marker} or {list_end_marker} not found in {compat_file}.")
-        sys.exit(1)
+    for marker in [sum_start_marker, sum_end_marker, reports_start_marker, reports_end_marker]:
+        if marker not in content:
+            print(f"[ERROR] Required marker '{marker}' not found in {compat_file}.")
+            sys.exit(1)
 
     device_key = re.sub(r"[^a-zA-Z0-9_-]", "", codename.lower())
     if not device_key or device_key == "—":
         device_key = re.sub(r"[^a-zA-Z0-9_-]", "", device_name.lower())
 
-    device_start_marker = f"<!-- DEVICE: {device_key} -->"
-    device_end_marker = f"<!-- /DEVICE: {device_key} -->"
-
+    anchor = device_key
+    device_start_marker = f"<!-- DEVICE: {anchor} -->"
+    device_end_marker = f"<!-- /DEVICE: {anchor} -->"
     issue_marker = f"[#{issue_number}](" if issue_number else None
 
-    # Check if this device section already exists
+    # --- 1. Update/Add in DEVICE_REPORTS section ---
     if device_start_marker in content and device_end_marker in content:
-        print(f"[INFO] Device '{device_key}' already exists. Updating existing accordion...")
-        dev_parts = content.split(device_start_marker, 1)
-        before_dev = dev_parts[0]
-        dev_and_rest = dev_parts[1].split(device_end_marker, 1)
+        print(f"[INFO] Device '{anchor}' already has reports. Updating existing section...")
+        r_parts = content.split(device_start_marker, 1)
+        before_dev = r_parts[0]
+        dev_and_rest = r_parts[1].split(device_end_marker, 1)
         dev_block = dev_and_rest[0]
         after_dev = dev_and_rest[1]
 
-        # Extract existing rows from the table in dev_block
+        # Extract existing rows from table
         lines = dev_block.strip().splitlines()
         existing_report_rows = []
         table_found = False
@@ -172,62 +175,82 @@ def main():
                 table_found = True
                 continue
             if table_found and l.strip().startswith("|"):
-                # If this issue was previously imported, skip it to avoid duplicate on edit
                 if issue_marker and issue_marker in l:
-                    continue
+                    continue  # Deduplicate on re-run / edit
                 existing_report_rows.append(l.strip())
 
-        # Append new report row
         existing_report_rows.append(new_report_row)
         total_reports = len(existing_report_rows)
-        plural_s = "report" if total_reports == 1 else "reports"
+        plural_s = "Report" if total_reports == 1 else "Reports"
+        model_str = f" / `{model}`" if model != "—" else ""
 
-        # Rebuild device block
-        model_str = f" ({model})" if model != "—" else ""
         new_dev_block = f"""
-<details>
-<summary><b>{device_name}</b> &nbsp;•&nbsp; <code>{codename}</code>{model_str} &nbsp;•&nbsp; {badge_emoji} <b>{result_cat}</b> &nbsp;<i>({total_reports} {plural_s})</i></summary>
-<br>
+<a id="{anchor}"></a>
+### 📱 {device_name} (`{codename}`{model_str})
+
+**Overall Status:** {badge_emoji} **{result_cat}** &bull; **Total Reports:** {total_reports}
 
 | Report | Compiler | Custom ROM | Stock Firmware | Outcome | Tested Features / Notes |
 | :--- | :---: | :--- | :--- | :---: | :--- |
-""" + "\n".join(existing_report_rows) + "\n\n</details>\n"
+""" + "\n".join(existing_report_rows) + "\n"
 
         content = before_dev + device_start_marker + new_dev_block + device_end_marker + after_dev
-
     else:
-        print(f"[INFO] Adding new device accordion for '{device_name}' ({codename})...")
-        model_str = f" ({model})" if model != "—" else ""
+        print(f"[INFO] Adding new device section for '{device_name}' ({codename})...")
+        total_reports = 1
+        plural_s = "Report"
+        model_str = f" / `{model}`" if model != "—" else ""
+
         new_dev_block = f"""{device_start_marker}
-<details>
-<summary><b>{device_name}</b> &nbsp;•&nbsp; <code>{codename}</code>{model_str} &nbsp;•&nbsp; {badge_emoji} <b>{result_cat}</b> &nbsp;<i>(1 report)</i></summary>
-<br>
+<a id="{anchor}"></a>
+### 📱 {device_name} (`{codename}`{model_str})
+
+**Overall Status:** {badge_emoji} **{result_cat}** &bull; **Total Reports:** 1
 
 | Report | Compiler | Custom ROM | Stock Firmware | Outcome | Tested Features / Notes |
 | :--- | :---: | :--- | :--- | :---: | :--- |
 {new_report_row}
-
-</details>
 {device_end_marker}
 """
-        # Find directory list block
-        list_parts = content.split(list_start_marker, 1)
-        before_list = list_parts[0] + list_start_marker + "\n"
-        list_and_after = list_parts[1].split(list_end_marker, 1)
-        current_list = list_and_after[0].strip()
-        after_list = "\n" + list_end_marker + list_and_after[1]
+        r_parts = content.split(reports_start_marker, 1)
+        before_reports = r_parts[0] + reports_start_marker + "\n"
+        reports_and_after = r_parts[1].split(reports_end_marker, 1)
+        current_reports = reports_and_after[0].strip()
+        after_reports = "\n" + reports_end_marker + reports_and_after[1]
 
-        # Remove placeholder if present
-        if "*No confirmed reports yet.*" in current_list:
-            current_list = ""
+        updated_reports = current_reports + "\n\n" + new_dev_block if current_reports else new_dev_block
+        content = before_reports + updated_reports.strip() + after_reports
 
-        updated_list = current_list + "\n\n" + new_dev_block if current_list else new_dev_block
-        content = before_list + updated_list.strip() + after_list
+    # --- 2. Update/Add in SUMMARY_TABLE section ---
+    s_parts = content.split(sum_start_marker, 1)
+    before_sum = s_parts[0] + sum_start_marker + "\n"
+    sum_and_after = s_parts[1].split(sum_end_marker, 1)
+    current_sum = sum_and_after[0].strip()
+    after_sum = "\n" + sum_end_marker + sum_and_after[1]
+
+    sum_lines = [l for l in current_sum.splitlines() if "*No confirmed reports yet.*" not in l]
+
+    # Check if a row for this device anchor already exists in summary table
+    new_summary_row = f"| [**{device_name}**](#{anchor}) | `{codename}` | `{model}` | {badge_emoji} {result_cat} | [{total_reports} {plural_s} ➔](#{anchor}) |"
+
+    updated_sum_lines = []
+    found_in_summary = False
+    for l in sum_lines:
+        if f"(#{anchor})" in l:
+            updated_sum_lines.append(new_summary_row)
+            found_in_summary = True
+        else:
+            updated_sum_lines.append(l)
+
+    if not found_in_summary:
+        updated_sum_lines.append(new_summary_row)
+
+    content = before_sum + "\n".join(updated_sum_lines) + after_sum
 
     with open(compat_file, "w", encoding="utf-8") as f:
         f.write(content)
 
-    print(f"[SUCCESS] Successfully updated {compat_file} for {device_name} ({codename}).")
+    print(f"[SUCCESS] Successfully updated {compat_file} with table and report details for {device_name} ({codename}).")
 
 if __name__ == "__main__":
     main()
