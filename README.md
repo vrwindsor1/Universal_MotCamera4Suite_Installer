@@ -33,25 +33,13 @@ Extracts Motorola Camera 4, companion AI services, vendor hardware abstraction l
 - **Installation Timing:** Can be installed at any time—no data wipe or first-boot installation required.
 
 > [!TIP]
-> 📋 **Community Device Compatibility Matrix & Testing Guide**:  
-> We maintain a live hardware compatibility list and detailed testing walkthrough on the dedicated [`compatibility-list`](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/tree/compatibility-list) branch.  
-> 👉 **[Explore the Compatibility List & Step-by-Step Guide](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/tree/compatibility-list)**
+> 📋 **Device Compatibility Matrix & Testing Guide**:  
+> We maintain a dedicated compatibility matrix and detailed testing walkthrough in [**COMPATIBILITY.md**](COMPATIBILITY.md).  
+> 👉 **[View the Device Compatibility List & Guide](COMPATIBILITY.md)**
 
 ---
 
-## Devices & Verified Reports
-
-### Verified Tested Devices
-- **Moto G Stylus 5G (2023)** (`genevn` / `XT2315-1`) — **Works Perfectly** (Main 50MP, Ultrawide, Macro, Front 16MP, 4K/1080p Video, Portrait, and Pro modes fully operational on LineageOS 21).
-
-### Community Compatibility Matrix
-All device compatibility results are tracked and updated from user reports on the dedicated [`compatibility-list`](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/tree/compatibility-list) branch.
-
-👉 **[View the Live Compatibility Matrix & Reporting Guide](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/tree/compatibility-list)**
-
----
-
-## Submitting a Compatibility Report
+## Compatibility Reports
 
 Tested this installer on your Motorola device? Help the community by reporting your test outcome!
 
@@ -76,7 +64,7 @@ When filling out the report, you will provide:
 4. **Environment:** Custom ROM name/version (e.g., LineageOS 21) and stock firmware build extracted from.
 
 👉 **[Submit a Device Compatibility Report](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/issues/new?template=compatibility_report.yml)**  
-📖 **[Read the Full Testing & Reporting Guide on the `compatibility-list` branch](https://github.com/vrwindsor1/Universal_MotCamera4Suite_Installer/tree/compatibility-list)**
+📖 **[View the Full Compatibility Matrix & Walkthrough in COMPATIBILITY.md](COMPATIBILITY.md)**
 
 ---
 
