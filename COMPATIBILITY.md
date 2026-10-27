@@ -48,7 +48,7 @@ Click any device or report link in the table below to view its dedicated test hi
 <!-- SUMMARY_TABLE_START -->
 | Device Name | Codename | Model # | Status | Reports |
 | :--- | :--- | :--- | :---: | :---: |
-| [**Moto G Stylus 5G (2023)**](reports/genevn.md) | `genevn` | `XT2315-1` | 🟢 Works Perfectly | [1 Report ➔](reports/genevn.md) |
+| [**Moto G Stylus 5G (2023)**](reports/genevn.md) | `genevn` | `XT2315` | 🟢 Works Perfectly | [1 Report ➔](reports/genevn.md) |
 | [**Lenovo ThinkPhone by Motorola**](reports/bronco.md) | `bronco` | `XT2309` | ❔ Untested | [0 Reports ➔](reports/bronco.md) |
 | [**Moto G (2023)**](reports/penangp.md) | `penangp` | `XT2313` | ❔ Untested | [0 Reports ➔](reports/penangp.md) |
 | [**Moto G Power 5G (2023)**](reports/cebu.md) | `cebu` | `XT2311` | ❔ Untested | [0 Reports ➔](reports/cebu.md) |
