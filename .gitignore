@@ -21,3 +21,4 @@ Thumbs.db
 # Raw firmware images and dumps
 *.img
 super.img_sparsechunk.*
+__pycache__/

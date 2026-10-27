@@ -27,7 +27,7 @@ This document tracks community-verified Motorola devices, tested custom ROMs, co
 
 ## Result Classifications
 
-Every tested device outcome is classified into one of five categories:
+Every tested device outcome is classified into one of the following categories:
 
 | Status Badge | Result Category | Definition |
 | :---: | :--- | :--- |
@@ -36,6 +36,7 @@ Every tested device outcome is classified into one of five categories:
 | 🔴 | **`App Crashes`** | Sideload finishes and the app is installed, but the app immediately crashes, freezes, or force-closes upon launch. |
 | ⚪ | **`App Missing`** | Sideload completes, but after booting the ROM, Moto Camera 4 is completely absent from the app drawer and system partition. |
 | ⛔ | **`Won't Boot`** | The flashed package caused the device to bootloop, dump into recovery, or hang on the boot animation (softbrick). |
+| ❔ | **`Untested`** | No community-verified test reports submitted yet, but this device is expected by the developer to be working based on its stock MotCamera4 architecture. |
 
 ---
 
@@ -47,6 +48,25 @@ Click any device or report link in the table below to view its dedicated test hi
 | Device Name | Codename | Model # | Status | Reports |
 | :--- | :--- | :--- | :---: | :---: |
 | [**Moto G Stylus 5G (2023)**](reports/genevn.md) | `genevn` | `XT2315-1` | 🟢 Works Perfectly | [1 Report ➔](reports/genevn.md) |
+| [**Lenovo ThinkPhone by Motorola**](reports/bronco.md) | `bronco` | `XT2309` | ❔ Untested | [0 Reports ➔](reports/bronco.md) |
+| [**Moto G (2023)**](reports/penangp.md) | `penangp` | `XT2313` | ❔ Untested | [0 Reports ➔](reports/penangp.md) |
+| [**Moto G Power 5G (2023)**](reports/cebu.md) | `cebu` | `XT2311` | ❔ Untested | [0 Reports ➔](reports/cebu.md) |
+| [**Moto G Stylus 5G (2022)**](reports/milanf.md) | `milanf` | `XT2215` | ❔ Untested | [0 Reports ➔](reports/milanf.md) |
+| [**Moto G Stylus 5G (2024)**](reports/manaus.md) | `manaus` | `XT2419` | ❔ Untested | [0 Reports ➔](reports/manaus.md) |
+| [**Moto G34 5G**](reports/fog.md) | `fog` | `XT2363` | ❔ Untested | [0 Reports ➔](reports/fog.md) |
+| [**Moto G53 5G**](reports/penang.md) | `penang` | `XT2335` | ❔ Untested | [0 Reports ➔](reports/penang.md) |
+| [**Moto G54 5G**](reports/cancunf.md) | `cancunf` | `XT2343` | ❔ Untested | [0 Reports ➔](reports/cancunf.md) |
+| [**Moto G73 5G**](reports/devon.md) | `devon` | `XT2237` | ❔ Untested | [0 Reports ➔](reports/devon.md) |
+| [**Moto G84 5G**](reports/bangkk.md) | `bangkk` | `XT2347` | ❔ Untested | [0 Reports ➔](reports/bangkk.md) |
+| [**Motorola Edge (2022) / Edge 30**](reports/dubai.md) | `dubai` | `XT2203`, `XT2205` | ❔ Untested | [0 Reports ➔](reports/dubai.md) |
+| [**Motorola Edge 30 Fusion**](reports/tundra.md) | `tundra` | `XT2243` | ❔ Untested | [0 Reports ➔](reports/tundra.md) |
+| [**Motorola Edge 30 Pro / Edge+ (2022)**](reports/hiphic.md) | `hiphic` | `XT2201` | ❔ Untested | [0 Reports ➔](reports/hiphic.md) |
+| [**Motorola Edge 30 Ultra / Moto X30 Pro**](reports/eqs.md) | `eqs` | `XT2241` | ❔ Untested | [0 Reports ➔](reports/eqs.md) |
+| [**Motorola Edge 40**](reports/corfur.md) | `corfur` | `XT2303` | ❔ Untested | [0 Reports ➔](reports/corfur.md) |
+| [**Motorola Edge 40 Neo**](reports/manao.md) | `manao` | `XT2307` | ❔ Untested | [0 Reports ➔](reports/manao.md) |
+| [**Motorola Edge 40 Pro / Edge+ (2023)**](reports/rtwo.md) | `rtwo` | `XT2301` | ❔ Untested | [0 Reports ➔](reports/rtwo.md) |
+| [**Motorola Razr 40 / Razr (2023)**](reports/segas.md) | `segas` | `XT2323` | ❔ Untested | [0 Reports ➔](reports/segas.md) |
+| [**Motorola Razr 40 Ultra / Razr+ (2023)**](reports/zeekr.md) | `zeekr` | `XT2321` | ❔ Untested | [0 Reports ➔](reports/zeekr.md) |
 <!-- SUMMARY_TABLE_END -->
 
 ---

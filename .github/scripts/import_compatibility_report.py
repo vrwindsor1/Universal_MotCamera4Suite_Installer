@@ -89,6 +89,8 @@ def determine_badge(result_text: str) -> tuple[str, str]:
         return "⚪", "App Missing"
     elif "won't boot" in res or "wont boot" in res:
         return "⛔", "Won't Boot"
+    elif "untested" in res:
+        return "❔", "Untested"
     return "⚪", clean_cell(result_text)
 
 def main():
@@ -153,6 +155,8 @@ def main():
                 table_found = True
                 continue
             if table_found and line.strip().startswith("|"):
+                if "*no reports yet*" in line.lower():
+                    continue
                 if issue_marker and issue_marker in line:
                     continue  # Deduplicate on issue edit / re-run
                 table_lines.append(line.strip())
